@@ -1,0 +1,27 @@
+{
+  "name": "otenki.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "node-cron": "^3.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "description": "気象庁ホームページ( https://www.jma.go.jp/ )より取得した天気の情報を書き込むDiscord bot「おてんき」です。",
+  "main": "otenki.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Natsu-dev/otenki.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Natsu-dev/otenki.js/issues"
+  },
+  "homepage": "https://github.com/Natsu-dev/otenki.js#readme"
+}
