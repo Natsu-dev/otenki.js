@@ -4,7 +4,7 @@ const client = new Discord.Client();
 module.exports = {
     name: 'command',
     description: 'command hub',
-    async execute(client,command,args,message){
+    async execute(client, command, args, message){
         if (command === 'test'){
             message.channel.send('test')
         }
