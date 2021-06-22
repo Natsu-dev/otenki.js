@@ -2,7 +2,7 @@ CREATE TABLE "public"."kushiro" (
     "id" serial,
     "publishing_office" text,
     "report_datetime" timestamp,
-    "date_define" timestamp,
+    "date_define" timestamp UNIQUE,
     "weather_code" text,
     "pops" text,
     "reliabilities" text,

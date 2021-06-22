@@ -1,24 +1,65 @@
 const fs = require('fs')
 const https = require("https");
+const path = require("path");
+const request = require("request");
+const { Client } = require("pg")
+
+require('dotenv').config({path: path.join(__dirname, '.env')});
+
+const client = new Client({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT
+})
+
+client.connect()
 
 let area ='330000'
-
 let url = `https://www.jma.go.jp/bosai/forecast/data/forecast/${area}.json`;
-https.get(url, (res) => {
-    let body = '';
-    res.setEncoding('utf8');
+let jsonData;
 
-    res.on('data', (chunk) => {
-        body += chunk;
-    });
+let options = {json: true, encoding: 'utf-8'};
 
-    res.on('end', (res) => {
+request(url, options, (error, res, body) => {
+    if (error) {
+        return  console.log(error)
+    };
+
+    if (!error && res.statusCode === 200) {
         res = JSON.parse(body);
-        console.log(res);
+        jsonData = JSON.parse(body);
+        //console.log(jsonData);
         fs.writeFileSync(`./${area}.json`, JSON.stringify(res, null, '    '));
-    });
-}).on('error', (e) => {
-    console.log(e.message); //エラー時
+    };
 });
 
-console.log(`get area: ${area}`)
+console.log(jsonData)
+
+let areaName = jsonData[1]['timeSeries'][0]['areas']['area']['name']
+
+console.log(`get area: ${areaName}`)
+
+client.query(
+    `
+    CREATE TABLE "public".${areaName} (
+    "id" serial,
+    "publishing_office" text,
+    "report_datetime" timestamp,
+    "date_define" timestamp UNIQUE,
+    "weather_code" text,
+    "pops" text,
+    "reliabilities" text,
+    "tempsMin" text,
+    "tempsMax" text,
+    "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP
+    );
+    `
+    , (err, res) => {
+        console.log(err, res)
+        client.end()
+    })
+
+
