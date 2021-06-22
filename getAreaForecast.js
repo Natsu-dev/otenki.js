@@ -6,36 +6,43 @@ const { Client } = require("pg")
 
 require('dotenv').config({path: path.join(__dirname, '.env')});
 
-const client = new Client({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+let jsonDownload = new Promise((resolve, reject) => {
+    let area ='330000'
+    let url = `https://www.jma.go.jp/bosai/forecast/data/forecast/${area}.json`;
+    let jsonData;
+
+    let options = {json: true, encoding: 'utf-8'};
+
+    request(url, options, (error, res, body) => {
+        if (error) {
+            return  console.log(error)
+        };
+
+        if (!error && res.statusCode === 200) {
+            res = JSON.parse(body);
+            jsonData = JSON.parse(body);
+            //console.log(jsonData);
+            fs.writeFileSync(`./${area}.json`, JSON.stringify(res, null, '    '));
+        };
+    });
+    resolve(jsonData)
 })
 
-client.connect()
+let databaseConnect = new Promise((resolve, reject) => {
+    const client = new Client({
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB_DATABASE,
+        password: process.env.DB_PASSWORD,
+        port: process.env.DB_PORT
+    })
 
-let area ='330000'
-let url = `https://www.jma.go.jp/bosai/forecast/data/forecast/${area}.json`;
-let jsonData;
+    client.connect()
+    console.log('Database Connect.')
 
-let options = {json: true, encoding: 'utf-8'};
+    resolve(client)
+})
 
-request(url, options, (error, res, body) => {
-    if (error) {
-        return  console.log(error)
-    };
-
-    if (!error && res.statusCode === 200) {
-        res = JSON.parse(body);
-        jsonData = JSON.parse(body);
-        //console.log(jsonData);
-        fs.writeFileSync(`./${area}.json`, JSON.stringify(res, null, '    '));
-    };
-});
-
-console.log(jsonData)
 
 let areaName = jsonData[1]['timeSeries'][0]['areas']['area']['name']
 
