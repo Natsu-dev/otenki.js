@@ -1,7 +1,6 @@
 const fs = require('fs')
 const https = require("https");
 const path = require("path");
-const request = require("request");
 const {Client} = require("pg")
 
 require('dotenv').config({path: path.join(__dirname, '.env')});
@@ -45,8 +44,7 @@ async function databaseConnect() {
 }
 
 async function jsonOpen() {
-    const jsonData = JSON.parse(fs.readFileSync('./330000.json', 'utf8'));
-    return jsonData
+    return JSON.parse(fs.readFileSync('./330000.json', 'utf8'))
 }
 
 async function createDatabase(jsonData, client) {
