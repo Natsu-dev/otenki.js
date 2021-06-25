@@ -7,7 +7,7 @@ require('dotenv').config({path: path.join(__dirname, '.env')});
 
 let area = '330000'
 
-async function jsonDownload() {
+async function downloadJson(area) {
     let url = `https://www.jma.go.jp/bosai/forecast/data/forecast/${area}.json`;
     let jsonData = {};
     await https.get(url, (res) => {
@@ -30,7 +30,7 @@ async function jsonDownload() {
     return jsonData
 }
 
-async function databaseConnect() {
+async function connectDatabase() {
     const client = new Client({
         user: 'postgres',
         host: 'localhost',
@@ -43,7 +43,7 @@ async function databaseConnect() {
     return client
 }
 
-async function jsonOpen() {
+async function openJson() {
     return JSON.parse(fs.readFileSync('./330000.json', 'utf8'))
 }
 
@@ -53,12 +53,13 @@ async function createDatabase(jsonData, client) {
 
      client.query(
          `
-             CREATE TABLE "public"."${areaCode}"
+             CREATE TABLE "public"."tenki"
              (
                  "id"                serial,
+                 "area_code"         text,
                  "publishing_office" text,
                  "report_datetime"   timestamp,
-                 "date_define"       timestamp unique,
+                 "date_define"       timestamp,
                  "weather_code"      text,
                  "pops"              text,
                  "reliabilities"     text,
@@ -74,10 +75,19 @@ async function createDatabase(jsonData, client) {
          })
 }
 async function run() {
-    const client = await databaseConnect()
-    const jsonData = await jsonOpen()
+    const client = await connectDatabase()
+    //const jsonData = await openJson()
 
-    await createDatabase(jsonData, client)
+    //await createDatabase(jsonData, client)
+
+    client.query(
+        `
+            SELECT relname AS table_name FROM pg_stat_user_tables;
+        `
+        , (err, res) => {
+            console.log(err, res)
+            client.end()
+        })
 }
 
 run().then(r => console.log('finish.'))

@@ -6,8 +6,12 @@ CREATE TABLE "public"."kushiro" (
     "weather_code" text,
     "pops" text,
     "reliabilities" text,
-    "tempsMin" text,
-    "tempsMax" text,
+    "temps-min" text,
+    "temps-min-lower" text,
+    "temps-min-upper" text,
+    "temps-max" text,
+    "temps-max-lower" text,
+    "temps-max-upper" text,
     "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
     "updated_at" timestamp DEFAULT CURRENT_TIMESTAMP
 );
