@@ -44,14 +44,16 @@ exports.updateDatabase = async function (areaCode) {
     const query = {
         text: `
             INSERT INTO $1 (publishing_office, report_datetime, date_define, 
-                            weather_code, pops, reliabilities, temps_min, 
-                            temps_min_lower, temps_min_upper, temps_max, 
-                            temps_max_lower, temps_max_upper)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-            ON CONFLICT ON CONSTRAINT report_datetime DO
-            UPDATE SET カラム１=\'値\', カラム２=\'値\';
+                            weather_code, pop, reliability, temp_min, 
+                            temp_min_lower, temp_min_upper, temp_max, 
+                            temp_max_lower, temp_max_upper)
+            VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
         `,
-        values: [areaCode, 'mytest@samplel.com'],
+        values: [areaCode, publishingOffice, reportDatetime,
+            dateDefine, weatherCode, pop,
+            reliability, tempMin, tempMinLower,
+            tempMinUpper, tempMax, tempMaxLower,
+            tempMaxUpper]
     }
 
 }

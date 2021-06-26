@@ -3,7 +3,7 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
-    pgm.createTable('members', {
+    pgm.createTable('tenki', {
         id: 'id',
         area_code: {
             type: 'string',
@@ -28,42 +28,42 @@ exports.up = pgm => {
             notNull: true,
             default: false
         },
-        pops : {
+        pop : {
             type: 'string',
             notNull: true,
             default: false
         },
-        reliabilities : {
+        reliability : {
             type: 'string',
             notNull: true,
             default: false
         },
-        temps_min : {
+        temp_min : {
             type: 'string',
             notNull: true,
             default: false
         },
-        temps_min_lower : {
+        temp_min_lower : {
             type: 'string',
             notNull: true,
             default: false
         },
-        temps_min_upper : {
+        temp_min_upper : {
             type: 'string',
             notNull: true,
             default: false
         },
-        temps_max : {
+        temp_max : {
             type: 'string',
             notNull: true,
             default: false
         },
-        temps_max_lower : {
+        temp_max_lower : {
             type: 'string',
             notNull: true,
             default: false
         },
-        temps_max_upper : {
+        temp_max_upper : {
             type: 'string',
             notNull: true,
             default: false
