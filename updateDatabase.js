@@ -43,9 +43,9 @@ exports.updateDatabase = async function (areaCode) {
 
     const query = {
         text: `
-            INSERT INTO $1 (publishing_office, report_datetime, date_define, 
-                            weather_code, pop, reliability, temp_min, 
-                            temp_min_lower, temp_min_upper, temp_max, 
+            INSERT INTO $1 (publishing_office, report_datetime, date_define,
+                            weather_code, pop, reliability, temp_min,
+                            temp_min_lower, temp_min_upper, temp_max,
                             temp_max_lower, temp_max_upper)
             VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
         `,

@@ -36,7 +36,7 @@ async function connectDatabase() {
         host: 'localhost',
         database: 'postgres',
         password: 'user',
-        port: 5432,
+        port: 5432
     })
     await client.connect()
     console.log('Database Connect.')
@@ -80,7 +80,7 @@ async function run() {
 
     //await createDatabase(jsonData, client)
 
-    client.query(
+    await client.query(
         `
             SELECT relname AS table_name FROM pg_stat_user_tables;
         `
