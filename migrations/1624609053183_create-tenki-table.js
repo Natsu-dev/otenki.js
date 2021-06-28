@@ -7,66 +7,55 @@ exports.up = pgm => {
         id: 'id',
         area_code: {
             type: 'string',
-            notNull: true,
+            notNull: true
         },
         publishing_office: {
             type: 'string',
-            notNull: true,
+            notNull: true
         },
         report_datetime: {
             type: 'timestamp',
-            notNull: true,
-            default: true
+            notNull: true
         },
         date_define : {
             type: 'timestamp',
-            notNull: true,
-            default: false
+            notNull: true
         },
         weather_code : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         pop : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         reliability : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         temp_min : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         temp_min_lower : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         temp_min_upper : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         temp_max : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         temp_max_lower : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         temp_max_upper : {
             type: 'string',
-            notNull: true,
-            default: false
+            notNull: true
         },
         created_at: {
             type: 'timestamp',

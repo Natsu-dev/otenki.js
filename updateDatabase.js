@@ -12,7 +12,6 @@ async function connectDatabase() {
         password: 'user',
         port: 5432,
     })
-    await client.connect()
     console.log('Database Connect.')
     return client
 }
@@ -39,21 +38,31 @@ async function downloadJson(areaCode) {
 
 exports.updateDatabase = async function (areaCode) {
     const jsonData = await downloadJson(areaCode)
+    let publishingOffice, reportDatetime,
+        dateDefine, weatherCode, pop,
+        reliability, tempMin, tempMinLower,
+        tempMinUpper, tempMax, tempMaxLower,
+        tempMaxUpper;
+
     const client = await connectDatabase()
+    await client.connect()
 
     const query = {
         text: `
-            INSERT INTO $1 (publishing_office, report_datetime, date_define,
-                            weather_code, pop, reliability, temp_min,
-                            temp_min_lower, temp_min_upper, temp_max,
-                            temp_max_lower, temp_max_upper)
-            VALUES ($2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
+            INSERT INTO 'tenki' (area_code, publishing_office, report_datetime,
+                                 date_define, weather_code, pop,
+                                 reliability, temp_min, temp_min_lower,
+                                 temp_min_upper, temp_max, temp_max_lower,
+                                 temp_max_upper)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
         `,
         values: [areaCode, publishingOffice, reportDatetime,
-            dateDefine, weatherCode, pop,
-            reliability, tempMin, tempMinLower,
-            tempMinUpper, tempMax, tempMaxLower,
-            tempMaxUpper]
+                dateDefine, weatherCode, pop,
+                reliability, tempMin, tempMinLower,
+                tempMinUpper, tempMax, tempMaxLower,
+                tempMaxUpper]
     }
-
+    client.query(query)
+        .then(res => console.log(res.rows[0]))
+        .catch(e => console.log(e.stack))
 }
