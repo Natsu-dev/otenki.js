@@ -7,7 +7,8 @@ exports.up = pgm => {
         id: 'id',
         area_code: {
             type: 'string',
-            notNull: true
+            notNull: true,
+            unique: true
         },
         publishing_office: {
             type: 'string',
@@ -17,9 +18,10 @@ exports.up = pgm => {
             type: 'timestamp',
             notNull: true
         },
-        date_define : {
+        time_define : {
             type: 'timestamp',
-            notNull: true
+            notNull: true,
+            unique: true
         },
         weather_code : {
             type: 'string',
