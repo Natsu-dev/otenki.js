@@ -1,17 +1,8 @@
 const https = require("https");
 const path = require("path");
-const {Pool, Client} = require("pg")
+const {Pool, Client} = require("pg");
 
 require('dotenv').config({path: path.join(__dirname, '.env')});
-
-const connectDatabase = () =>
-    new Client({
-        user: 'postgres',
-        host: 'localhost',
-        database: 'postgres',
-        password: 'user',
-        port: 5432,
-    });
 
 async function downloadJson(areaCode) {
     return new Promise((resolve, reject) => {
@@ -42,24 +33,24 @@ updateDatabase = async primaryAreaCode => {
         let tempMaxLower = jsonData[0].week.timeSeries[1].areas.tempsMaxLower[0];
         let tempMaxUpper = jsonData[0].week.timeSeries[1].areas.tempsMaxUpper[0];
 
-        const client = connectDatabase();
-        const pool = new Pool();
-
-        client.connect();
-
-        console.log(areaCode, areaName);
+        const client = new Client({
+            user: 'postgres',
+            host: 'localhost',
+            database: 'postgres',
+            password: 'user',
+            port: 5432
+        });
 
         const query = {
-            text: `
-                INSERT INTO 'tenki' (area_code, area_name, publishing_office, report_datetime,
+            text:`
+                INSERT INTO tenki (area_code, area_name, publishing_office, report_datetime,
                                      time_define, weather_code, pop,
                                      reliability, temp_min, temp_min_lower,
                                      temp_min_upper, temp_max, temp_max_lower,
                                      temp_max_upper)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-                ON CONFLICT ON CONSTRAINT (area_code, time_define)
-                    DO
-                UPDATE SET (publishing_office=excluded.publishing_office,
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+                ON CONFLICT (area_code, time_define)
+                DO UPDATE SET (publishing_office=excluded.publishing_office,
                     report_datetime=excluded.report_datetime,
                     weather_code=excluded.weather_code,
                     pop=excluded.pop,
@@ -77,11 +68,16 @@ updateDatabase = async primaryAreaCode => {
                 tempMinUpper, tempMax, tempMaxLower,
                 tempMaxUpper]
         }
-        client.query(query)
-            .then(res => console.log(res.rows[0]))
-            .catch(e => console.log(e.stack))
 
-        client.end();
+        client.connect()
+            .then(() => console.log('Successfully connected.'))
+            .then(() => client.query(query))
+            .then(res => console.log(res.rows[0]))
+            .then(() => client.end())
+            .catch(e => {
+                console.log(e.stack);
+                client.end();
+            });
 
     })
 }
