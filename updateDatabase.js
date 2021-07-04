@@ -49,8 +49,8 @@ updateDatabase = async primaryAreaCode => {
                                      temp_min_upper, temp_max, temp_max_lower,
                                      temp_max_upper)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-                ON CONFLICT (area_code, time_define)
-                DO UPDATE SET (publishing_office=excluded.publishing_office,
+                ON CONFLICT ON CONSTRAINT tenki_area_code
+                DO UPDATE SET publishing_office=excluded.publishing_office,
                     report_datetime=excluded.report_datetime,
                     weather_code=excluded.weather_code,
                     pop=excluded.pop,
@@ -60,7 +60,7 @@ updateDatabase = async primaryAreaCode => {
                     temp_min_upper=excluded.temp_min_upper,
                     temp_max=excluded.temp_max,
                     temp_max_lower=excluded.temp_max_lower,
-                    temp_max_upper=excluded.temp_max_upper);
+                    temp_max_upper=excluded.temp_max_upper;
             `,
             values: [areaCode, areaName, publishingOffice, reportDatetime,
                 timeDefine, weatherCode, pop,
