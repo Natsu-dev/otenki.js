@@ -6,8 +6,7 @@ exports.up = pgm => {
     pgm.createTable('tenki', {
         id: 'id',
         area_code: {
-            type: 'string',
-            unique: true
+            type: 'string'
         },
         area_name: {
             type: 'string',
@@ -22,8 +21,7 @@ exports.up = pgm => {
             notNull: true
         },
         time_define : {
-            type: 'timestamp',
-            unique: true
+            type: 'timestamp'
         },
         weather_code : {
             type: 'string',
@@ -64,14 +62,18 @@ exports.up = pgm => {
         created_at: {
             type: 'timestamp',
             notNull: true,
-            default: pgm.func('current_timestamp'),
+            default: pgm.func('current_timestamp')
         },
         updated_at: {
             type: 'timestamp',
             notNull: true,
-            default: pgm.func('current_timestamp'),
-        },
-    })
+            default: pgm.func('current_timestamp')
+        }
+    }, {
+        constraints: {
+            unique: ['area_code', 'time_define']
+        }
+    });
 };
 
 exports.down = pgm => {};
