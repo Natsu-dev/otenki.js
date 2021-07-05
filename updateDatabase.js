@@ -18,20 +18,26 @@ async function downloadJson(areaCode) {
 
 updateDatabase = async primaryAreaCode => {
     downloadJson(primaryAreaCode).then((jsonData) => {
-        let areaCode = jsonData[0].week.timeSeries[0].areas.area.code;
-        let areaName = jsonData[0].name;
-        let publishingOffice = jsonData[0].week.publishingOffice;
-        let reportDatetime = jsonData[0].week.reportDatetime;
-        let timeDefine = jsonData[0].week.timeSeries[0].timeDefines[0];
-        let weatherCode = jsonData[0].week.timeSeries[0].areas.weatherCodes[0];
-        let pop = jsonData[0].week.timeSeries[0].areas.pops[0];
-        let reliability = jsonData[0].week.timeSeries[0].areas.reliabilities[0];
-        let tempMin = jsonData[0].week.timeSeries[1].areas.tempsMin[0];
-        let tempMinLower = jsonData[0].week.timeSeries[1].areas.tempsMinLower[0];
-        let tempMinUpper = jsonData[0].week.timeSeries[1].areas.tempsMinUpper[0];
-        let tempMax = jsonData[0].week.timeSeries[1].areas.tempsMax[0];
-        let tempMaxLower = jsonData[0].week.timeSeries[1].areas.tempsMaxLower[0];
-        let tempMaxUpper = jsonData[0].week.timeSeries[1].areas.tempsMaxUpper[0];
+
+        let areaCode, areaName, publishingOffice,
+            reportDatetime, timeDefine, weatherCode,
+            pop, reliability, tempMin, tempMinLower,
+            tempMinUpper, tempMax, tempMaxLower, tempMaxUpper;
+
+        areaCode = jsonData[0].week.timeSeries[0].areas.area.code;
+        areaName = jsonData[0].name;
+        publishingOffice = jsonData[0].week.publishingOffice;
+        reportDatetime = jsonData[0].week.reportDatetime;
+        timeDefine = jsonData[0].week.timeSeries[0].timeDefines[0];
+        weatherCode = jsonData[0].week.timeSeries[0].areas.weatherCodes[0];
+        pop = jsonData[0].week.timeSeries[0].areas.pops[0];
+        reliability = jsonData[0].week.timeSeries[0].areas.reliabilities[0];
+        tempMin = jsonData[0].week.timeSeries[1].areas.tempsMin[0];
+        tempMinLower = jsonData[0].week.timeSeries[1].areas.tempsMinLower[0];
+        tempMinUpper = jsonData[0].week.timeSeries[1].areas.tempsMinUpper[0];
+        tempMax = jsonData[0].week.timeSeries[1].areas.tempsMax[0];
+        tempMaxLower = jsonData[0].week.timeSeries[1].areas.tempsMaxLower[0];
+        tempMaxUpper = jsonData[0].week.timeSeries[1].areas.tempsMaxUpper[0];
 
         const client = new Client({
             user: 'postgres',
@@ -42,7 +48,7 @@ updateDatabase = async primaryAreaCode => {
         });
 
         const query = {
-            text:`
+            text: `
                 INSERT INTO tenki (area_code, area_name, publishing_office, report_datetime,
                                      time_define, weather_code, pop,
                                      reliability, temp_min, temp_min_lower,
