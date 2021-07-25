@@ -8,6 +8,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
+    "date-utils": "^1.2.21",
     "dotenv": "^10.0.0",
     "pg": "^8.6.0"
   },
