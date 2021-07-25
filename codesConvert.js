@@ -39,4 +39,4 @@ for (let key in wcList) {
     result[key] = [wcList[key][3], wcList[key][4], emoji];
     n++;
 }
-fs.writeFileSync('./output.json', JSON.stringify(result));
+fs.writeFileSync('./weatherCodes.json', JSON.stringify(result));
