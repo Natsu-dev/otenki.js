@@ -1,0 +1,592 @@
+{
+  "100": [
+    "晴",
+    "CLEAR",
+    ":sunny:"
+  ],
+  "101": [
+    "晴時々曇",
+    "PARTLY CLOUDY",
+    ":sunny:/:cloud:"
+  ],
+  "102": [
+    "晴一時雨",
+    "CLEAR, OCCASIONAL SCATTERED SHOWERS",
+    ":sunny:/:umbrella:"
+  ],
+  "103": [
+    "晴時々雨",
+    "CLEAR, FREQUENT SCATTERED SHOWERS",
+    ":sunny:/:umbrella:"
+  ],
+  "104": [
+    "晴一時雪",
+    "CLEAR, SNOW FLURRIES",
+    ":sunny:/:snowman2:"
+  ],
+  "105": [
+    "晴時々雪",
+    "CLEAR, FREQUENT SNOW FLURRIES",
+    ":sunny:/:snowman2:"
+  ],
+  "106": [
+    "晴一時雨か雪",
+    "CLEAR, OCCASIONAL SCATTERED SHOWERS OR SNOW FLURRIES",
+    ":sunny:/:umbrella:,:snowman2:"
+  ],
+  "107": [
+    "晴時々雨か雪",
+    "CLEAR, FREQUENT SCATTERED SHOWERS OR SNOW FLURRIES",
+    ":sunny:/:umbrella:,:snowman2:"
+  ],
+  "108": [
+    "晴一時雨か雷雨",
+    "CLEAR, OCCASIONAL SCATTERED SHOWERS AND/OR THUNDER",
+    ":sunny:/:umbrella:,:zap::umbrella:"
+  ],
+  "110": [
+    "晴後時々曇",
+    "CLEAR, PARTLY CLOUDY LATER",
+    ":sunny:/:cloud:"
+  ],
+  "111": [
+    "晴後曇",
+    "CLEAR, CLOUDY LATER",
+    ":sunny:→:cloud:"
+  ],
+  "112": [
+    "晴後一時雨",
+    "CLEAR, OCCASIONAL SCATTERED SHOWERS LATER",
+    ":sunny:/:umbrella:"
+  ],
+  "113": [
+    "晴後時々雨",
+    "CLEAR, FREQUENT SCATTERED SHOWERS LATER",
+    ":sunny:/:umbrella:"
+  ],
+  "114": [
+    "晴後雨",
+    "CLEAR,RAIN LATER",
+    ":sunny:→:umbrella:"
+  ],
+  "115": [
+    "晴後一時雪",
+    "CLEAR, OCCASIONAL SNOW FLURRIES LATER",
+    ":sunny:/:snowman2:"
+  ],
+  "116": [
+    "晴後時々雪",
+    "CLEAR, FREQUENT SNOW FLURRIES LATER",
+    ":sunny:/:snowman2:"
+  ],
+  "117": [
+    "晴後雪",
+    "CLEAR,SNOW LATER",
+    ":sunny:→:snowman2:"
+  ],
+  "118": [
+    "晴後雨か雪",
+    "CLEAR, RAIN OR SNOW LATER",
+    ":sunny:→:umbrella:,:snowman2:"
+  ],
+  "119": [
+    "晴後雨か雷雨",
+    "CLEAR, RAIN AND/OR THUNDER LATER",
+    ":sunny:→:umbrella:,:zap::umbrella:"
+  ],
+  "120": [
+    "晴朝夕一時雨",
+    "OCCASIONAL SCATTERED SHOWERS IN THE MORNING AND EVENING, CLEAR DURING THE DAY",
+    ":sunny:/:umbrella:"
+  ],
+  "121": [
+    "晴朝の内一時雨",
+    "OCCASIONAL SCATTERED SHOWERS IN THE MORNING, CLEAR DURING THE DAY",
+    ":sunny:/:umbrella:"
+  ],
+  "122": [
+    "晴夕方一時雨",
+    "CLEAR, OCCASIONAL SCATTERED SHOWERS IN THE EVENING",
+    ":sunny:/:umbrella:"
+  ],
+  "123": [
+    "晴山沿い雷雨",
+    "CLEAR IN THE PLAINS, RAIN AND THUNDER NEAR MOUTAINOUS AREAS",
+    ":sunny:,:zap::umbrella:"
+  ],
+  "124": [
+    "晴山沿い雪",
+    "CLEAR IN THE PLAINS, SNOW NEAR MOUTAINOUS AREAS",
+    ":sunny:,:snowman2:"
+  ],
+  "125": [
+    "晴午後は雷雨",
+    "CLEAR, RAIN AND THUNDER IN THE AFTERNOON",
+    ":sunny:→:zap::umbrella:"
+  ],
+  "126": [
+    "晴昼頃から雨",
+    "CLEAR, RAIN IN THE AFTERNOON",
+    ":sunny:→:umbrella:"
+  ],
+  "127": [
+    "晴夕方から雨",
+    "CLEAR, RAIN IN THE EVENING",
+    ":sunny:→:umbrella:"
+  ],
+  "128": [
+    "晴夜は雨",
+    "CLEAR, RAIN IN THE NIGHT",
+    ":sunny:→:umbrella:"
+  ],
+  "130": [
+    "朝の内霧後晴",
+    "FOG IN THE MORNING, CLEAR LATER",
+    ":fog:→:sunny:"
+  ],
+  "131": [
+    "晴明け方霧",
+    "FOG AROUND DAWN, CLEAR LATER",
+    ":sunny:明け方:fog:"
+  ],
+  "132": [
+    "晴朝夕曇",
+    "CLOUDY IN THE MORNING AND EVENING, CLEAR DURING THE DAY",
+    ":sunny:/:cloud:"
+  ],
+  "140": [
+    "晴時々雨で雷を伴う",
+    "CLEAR, FREQUENT SCATTERED SHOWERS AND THUNDER",
+    ":sunny:/:umbrella::zap:"
+  ],
+  "160": [
+    "晴一時雪か雨",
+    "CLEAR, SNOW FLURRIES OR OCCASIONAL SCATTERED SHOWERS",
+    ":sunny:/:snowman2:,:umbrella:"
+  ],
+  "170": [
+    "晴時々雪か雨",
+    "CLEAR, FREQUENT SNOW FLURRIES OR SCATTERED SHOWERS",
+    ":sunny:/:snowman2:,:umbrella:"
+  ],
+  "181": [
+    "晴後雪か雨",
+    "CLEAR, SNOW OR RAIN LATER",
+    ":sunny:→:snowman2:,:umbrella:"
+  ],
+  "200": [
+    "曇",
+    "CLOUDY",
+    ":cloud:"
+  ],
+  "201": [
+    "曇時々晴",
+    "MOSTLY CLOUDY",
+    ":cloud:/:sunny:"
+  ],
+  "202": [
+    "曇一時雨",
+    "CLOUDY, OCCASIONAL SCATTERED SHOWERS",
+    ":cloud:/:umbrella:"
+  ],
+  "203": [
+    "曇時々雨",
+    "CLOUDY, FREQUENT SCATTERED SHOWERS",
+    ":cloud:/:umbrella:"
+  ],
+  "204": [
+    "曇一時雪",
+    "CLOUDY, OCCASIONAL SNOW FLURRIES",
+    ":cloud:/:snowman2:"
+  ],
+  "205": [
+    "曇時々雪",
+    "CLOUDY FREQUENT SNOW FLURRIES",
+    ":cloud:/:snowman2:"
+  ],
+  "206": [
+    "曇一時雨か雪",
+    "CLOUDY, OCCASIONAL SCATTERED SHOWERS OR SNOW FLURRIES",
+    ":cloud:/:umbrella:,:snowman2:"
+  ],
+  "207": [
+    "曇時々雨か雪",
+    "CLOUDY, FREQUENT SCCATERED SHOWERS OR SNOW FLURRIES",
+    ":cloud:/:umbrella:,:snowman2:"
+  ],
+  "208": [
+    "曇一時雨か雷雨",
+    "CLOUDY, OCCASIONAL SCATTERED SHOWERS AND/OR THUNDER",
+    ":cloud:/:umbrella:,:zap::umbrella:"
+  ],
+  "209": [
+    "霧",
+    "FOG",
+    ":fog:"
+  ],
+  "210": [
+    "曇後時々晴",
+    "CLOUDY, PARTLY CLOUDY LATER",
+    ":cloud:/:sunny:"
+  ],
+  "211": [
+    "曇後晴",
+    "CLOUDY, CLEAR LATER",
+    ":cloud:→:sunny:"
+  ],
+  "212": [
+    "曇後一時雨",
+    "CLOUDY, OCCASIONAL SCATTERED SHOWERS LATER",
+    ":cloud:/:umbrella:"
+  ],
+  "213": [
+    "曇後時々雨",
+    "CLOUDY, FREQUENT SCATTERED SHOWERS LATER",
+    ":cloud:/:umbrella:"
+  ],
+  "214": [
+    "曇後雨",
+    "CLOUDY, RAIN LATER",
+    ":cloud:→:umbrella:"
+  ],
+  "215": [
+    "曇後一時雪",
+    "CLOUDY, SNOW FLURRIES LATER",
+    ":cloud:/:snowman2:"
+  ],
+  "216": [
+    "曇後時々雪",
+    "CLOUDY, FREQUENT SNOW FLURRIES LATER",
+    ":cloud:/:snowman2:"
+  ],
+  "217": [
+    "曇後雪",
+    "CLOUDY, SNOW LATER",
+    ":cloud:→:snowman2:"
+  ],
+  "218": [
+    "曇後雨か雪",
+    "CLOUDY, RAIN OR SNOW LATER",
+    ":cloud:→:umbrella:,:snowman2:"
+  ],
+  "219": [
+    "曇後雨か雷雨",
+    "CLOUDY, RAIN AND/OR THUNDER LATER",
+    ":cloud:→:umbrella:,:zap::umbrella:"
+  ],
+  "220": [
+    "曇朝夕一時雨",
+    "OCCASIONAL SCCATERED SHOWERS IN THE MORNING AND EVENING, CLOUDY DURING THE DAY",
+    ":cloud:/:umbrella:"
+  ],
+  "221": [
+    "曇朝の内一時雨",
+    "CLOUDY OCCASIONAL SCCATERED SHOWERS IN THE MORNING",
+    ":cloud:/:umbrella:"
+  ],
+  "222": [
+    "曇夕方一時雨",
+    "CLOUDY, OCCASIONAL SCCATERED SHOWERS IN THE EVENING",
+    ":cloud:/:umbrella:"
+  ],
+  "223": [
+    "曇日中時々晴",
+    "CLOUDY IN THE MORNING AND EVENING, PARTLY CLOUDY DURING THE DAY,",
+    ":cloud:/:sunny:"
+  ],
+  "224": [
+    "曇昼頃から雨",
+    "CLOUDY, RAIN IN THE AFTERNOON",
+    ":cloud:→:umbrella:"
+  ],
+  "225": [
+    "曇夕方から雨",
+    "CLOUDY, RAIN IN THE EVENING",
+    ":cloud:→:umbrella:"
+  ],
+  "226": [
+    "曇夜は雨",
+    "CLOUDY, RAIN IN THE NIGHT",
+    ":cloud:→:umbrella:"
+  ],
+  "228": [
+    "曇昼頃から雪",
+    "CLOUDY, SNOW IN THE AFTERNOON",
+    ":cloud:→:snowman2:"
+  ],
+  "229": [
+    "曇夕方から雪",
+    "CLOUDY, SNOW IN THE EVENING",
+    ":cloud:→:snowman2:"
+  ],
+  "230": [
+    "曇夜は雪",
+    "CLOUDY, SNOW IN THE NIGHT",
+    ":cloud:→:snowman2:"
+  ],
+  "231": [
+    "曇海上海岸は霧か霧雨",
+    "CLOUDY, FOG OR DRIZZLING ON THE SEA AND NEAR SEASHORE",
+    ":cloud:海上海岸は:fog:,:fog::umbrella:"
+  ],
+  "240": [
+    "曇時々雨で雷を伴う",
+    "CLOUDY, FREQUENT SCCATERED SHOWERS AND THUNDER",
+    ":cloud:/:umbrella::zap:"
+  ],
+  "250": [
+    "曇時々雪で雷を伴う",
+    "CLOUDY, FREQUENT SNOW AND THUNDER",
+    ":cloud:/:snowman2::zap:"
+  ],
+  "260": [
+    "曇一時雪か雨",
+    "CLOUDY, SNOW FLURRIES OR OCCASIONAL SCATTERED SHOWERS",
+    ":cloud:/:snowman2:,:umbrella:"
+  ],
+  "270": [
+    "曇時々雪か雨",
+    "CLOUDY, FREQUENT SNOW FLURRIES OR SCATTERED SHOWERS",
+    ":cloud:/:snowman2:,:umbrella:"
+  ],
+  "281": [
+    "曇後雪か雨",
+    "CLOUDY, SNOW OR RAIN LATER",
+    ":cloud:→:snowman2:,:umbrella:"
+  ],
+  "300": [
+    "雨",
+    "RAIN",
+    ":umbrella:"
+  ],
+  "301": [
+    "雨時々晴",
+    "RAIN, PARTLY CLOUDY",
+    ":umbrella:/:sunny:"
+  ],
+  "302": [
+    "雨時々止む",
+    "SHOWERS THROUGHOUT THE DAY",
+    ":umbrella:/:cloud:"
+  ],
+  "303": [
+    "雨時々雪",
+    "RAIN,FREQUENT SNOW FLURRIES",
+    ":umbrella:/:snowman2:"
+  ],
+  "304": [
+    "雨か雪",
+    "RAINORSNOW",
+    ":umbrella:,:snowman2:"
+  ],
+  "306": [
+    "大雨",
+    "HEAVYRAIN",
+    ":umbrella::cloud_rain:"
+  ],
+  "308": [
+    "雨で暴風を伴う",
+    "RAINSTORM",
+    ":umbrella::dash:"
+  ],
+  "309": [
+    "雨一時雪",
+    "RAIN,OCCASIONAL SNOW",
+    ":umbrella:/:snowman2:"
+  ],
+  "311": [
+    "雨後晴",
+    "RAIN,CLEAR LATER",
+    ":umbrella:→:sunny:"
+  ],
+  "313": [
+    "雨後曇",
+    "RAIN,CLOUDY LATER",
+    ":umbrella:→:cloud:"
+  ],
+  "314": [
+    "雨後時々雪",
+    "RAIN, FREQUENT SNOW FLURRIES LATER",
+    ":umbrella:/:snowman2:"
+  ],
+  "315": [
+    "雨後雪",
+    "RAIN,SNOW LATER",
+    ":umbrella:→:snowman2:"
+  ],
+  "316": [
+    "雨か雪後晴",
+    "RAIN OR SNOW, CLEAR LATER",
+    ":umbrella:,:snowman2:→:sunny:"
+  ],
+  "317": [
+    "雨か雪後曇",
+    "RAIN OR SNOW, CLOUDY LATER",
+    ":umbrella:,:snowman2:→:cloud:"
+  ],
+  "320": [
+    "朝の内雨後晴",
+    "RAIN IN THE MORNING, CLEAR LATER",
+    ":umbrella:→:sunny:"
+  ],
+  "321": [
+    "朝の内雨後曇",
+    "RAIN IN THE MORNING, CLOUDY LATER",
+    ":umbrella:→:cloud:"
+  ],
+  "322": [
+    "雨朝晩一時雪",
+    "OCCASIONAL SNOW IN THE MORNING AND EVENING, RAIN DURING THE DAY",
+    ":umbrella:/:snowman2:"
+  ],
+  "323": [
+    "雨昼頃から晴",
+    "RAIN, CLEAR IN THE AFTERNOON",
+    ":umbrella:→:sunny:"
+  ],
+  "324": [
+    "雨夕方から晴",
+    "RAIN, CLEAR IN THE EVENING",
+    ":umbrella:→:sunny:"
+  ],
+  "325": [
+    "雨夜は晴",
+    "RAIN, CLEAR IN THE NIGHT",
+    ":umbrella:→:sunny:"
+  ],
+  "326": [
+    "雨夕方から雪",
+    "RAIN, SNOW IN THE EVENING",
+    ":umbrella:→:snowman2:"
+  ],
+  "327": [
+    "雨夜は雪",
+    "RAIN,SNOW IN THE NIGHT",
+    ":umbrella:→:snowman2:"
+  ],
+  "328": [
+    "雨一時強く降る",
+    "RAIN, EXPECT OCCASIONAL HEAVY RAINFALL",
+    ":umbrella:/:umbrella::cloud_rain:"
+  ],
+  "329": [
+    "雨一時みぞれ",
+    "RAIN, OCCASIONAL SLEET",
+    ":umbrella:/:umbrella::snowflake:"
+  ],
+  "340": [
+    "雪か雨",
+    "SNOWORRAIN",
+    ":snowman2:,:umbrella:"
+  ],
+  "350": [
+    "雨で雷を伴う",
+    "RAIN AND THUNDER",
+    ":umbrella::zap:"
+  ],
+  "361": [
+    "雪か雨後晴",
+    "SNOW OR RAIN, CLEAR LATER",
+    ":snowman2:,:umbrella:→:sunny:"
+  ],
+  "371": [
+    "雪か雨後曇",
+    "SNOW OR RAIN, CLOUDY LATER",
+    ":snowman2:,:umbrella:→:cloud:"
+  ],
+  "400": [
+    "雪",
+    "SNOW",
+    ":snowman2:"
+  ],
+  "401": [
+    "雪時々晴",
+    "SNOW, FREQUENT CLEAR",
+    ":snowman2:/:sunny:"
+  ],
+  "402": [
+    "雪時々止む",
+    "SNOWTHROUGHOUT THE DAY",
+    ":snowman2:/:cloud:"
+  ],
+  "403": [
+    "雪時々雨",
+    "SNOW,FREQUENT SCCATERED SHOWERS",
+    ":snowman2:/:umbrella:"
+  ],
+  "405": [
+    "大雪",
+    "HEAVYSNOW",
+    ":snowman2::cloud_snow:"
+  ],
+  "406": [
+    "風雪強い",
+    "SNOWSTORM",
+    ":snowman2::dash:"
+  ],
+  "407": [
+    "暴風雪",
+    "HEAVYSNOWSTORM",
+    ":dash::snowman2:"
+  ],
+  "409": [
+    "雪一時雨",
+    "SNOW, OCCASIONAL SCCATERED SHOWERS",
+    ":snowman2:/:umbrella:"
+  ],
+  "411": [
+    "雪後晴",
+    "SNOW,CLEAR LATER",
+    ":snowman2:→:sunny:"
+  ],
+  "413": [
+    "雪後曇",
+    "SNOW,CLOUDY LATER",
+    ":snowman2:→:cloud:"
+  ],
+  "414": [
+    "雪後雨",
+    "SNOW,RAIN LATER",
+    ":snowman2:→:umbrella:"
+  ],
+  "420": [
+    "朝の内雪後晴",
+    "SNOW IN THE MORNING, CLEAR LATER",
+    ":snowman2:→:sunny:"
+  ],
+  "421": [
+    "朝の内雪後曇",
+    "SNOW IN THE MORNING, CLOUDY LATER",
+    ":snowman2:→:cloud:"
+  ],
+  "422": [
+    "雪昼頃から雨",
+    "SNOW, RAIN IN THE AFTERNOON",
+    ":snowman2:→:umbrella:"
+  ],
+  "423": [
+    "雪夕方から雨",
+    "SNOW, RAIN IN THE EVENING",
+    ":snowman2:→:umbrella:"
+  ],
+  "425": [
+    "雪一時強く降る",
+    "SNOW, EXPECT OCCASIONAL HEAVY SNOWFALL",
+    ":snowman2:/:umbrella::cloud_rain:"
+  ],
+  "426": [
+    "雪後みぞれ",
+    "SNOW, SLEET LATER",
+    ":snowman2:→:umbrella::snowflake:"
+  ],
+  "427": [
+    "雪一時みぞれ",
+    "SNOW, OCCASIONAL SLEET",
+    ":snowman2:/:umbrella::snowflake:"
+  ],
+  "450": [
+    "雪で雷を伴う",
+    "SNOW AND THUNDER",
+    ":snowman2::zap:"
+  ]
+}
