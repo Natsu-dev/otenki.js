@@ -22,83 +22,95 @@ const openCodesFile = async () => new Promise((resolve, reject) => {
     });
 });
 
-exports.getWholeWeather = async () => new Promise((resolve, reject) => {
-    Promise.all([
-        downloadJson('010000'), // 全国予報のjsonを取ってくる
-        openCodesFile(), // テロップ番号対応表
-    ]).then((values) => {
-        const tenki = values[0];
-        const codes = values[1];
+exports.getWholeWeather = async (optionDate) => {
+    return new Promise((resolve, reject) => {
+        Promise.all([
+            downloadJson('010000'), // 全国予報のjsonを取ってくる
+            openCodesFile(), // テロップ番号対応表
+        ]).then((values) => {
+            const tenki = values[0];
+            const codes = values[1];
 
-        const optionDate = Date.tomorrow();
-        const reportDatetime = new Date(tenki[0].srf.reportDatetime);
+            const reportDatetime = new Date(tenki[0].srf.reportDatetime);
 
-        // 該当の日付がリストの何番目にあるか探す
-        const optionIndex = tenki[0].srf.timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
+            let optionIndex = 1;
+            // 日付指定がなければ予報発表の翌日
+            if (!optionDate)
+                optionDate = new Date(tenki[0].srf.timeSeries[0].timeDefines[optionIndex]);
+            else
+                // あれば該当の日付がリストの何番目にあるか探す
+                optionIndex = tenki[0].srf.timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
 
-        // Embedの初期化
-        let forecast = new Discord.MessageEmbed()
-            .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の全国の天気')
-            .setColor('0x219ddd')
-            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 発表')
-            .setURL('https://www.jma.go.jp/bosai/forecast/');
+            // Embedの初期化
+            let forecast = new Discord.MessageEmbed()
+                .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の全国の天気')
+                .setColor('0x219ddd')
+                .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 発表')
+                .setURL('https://www.jma.go.jp/bosai/forecast/');
 
-        // ここループでぶん回して全都市引っこ抜く
-        tenki.forEach(city => {
+            // ここループでぶん回して全都市引っこ抜く
+            tenki.forEach(city => {
 
-            const name = city.name;
-            const weatherCode = city.srf.timeSeries[0].areas.weatherCodes[optionIndex];
+                const name = city.name;
+                const weatherCode = city.srf.timeSeries[0].areas.weatherCodes[optionIndex];
 
-            let weatherName, weatherEmoji;
-            for (let key in codes) {
-                if (key === weatherCode) {
-                    weatherName = codes[key][0];
-                    weatherEmoji = codes[key][2];
+                let weatherName, weatherEmoji;
+                for (let key in codes) {
+                    if (key === weatherCode) {
+                        weatherName = codes[key][0];
+                        weatherEmoji = codes[key][2];
+                    }
                 }
-            }
-            forecast.addField(name, weatherEmoji + '\n' + weatherName, true);
+                forecast.addField(name, weatherEmoji + '\n' + weatherName, true);
+            });
+            resolve(forecast);
         });
-        resolve(forecast);
     });
-})
+}
 
-exports.getLocalWeather = async primaryAreaCode => new Promise((resolve, reject) => {
-    Promise.all([
-        downloadJson(primaryAreaCode), // 天気予報のjsonを取ってくる
-        openCodesFile(), // テロップ番号対応表
-    ]).then((values) => {
-        const tenki = values[0];
-        const codes = values[1];
+exports.getLocalWeather = async (primaryAreaCode, optionDate) => {
+    return new Promise((resolve, reject) => {
+        Promise.all([
+            downloadJson(primaryAreaCode), // 天気予報のjsonを取ってくる
+            openCodesFile(), // テロップ番号対応表
+        ]).then((values) => {
+            const tenki = values[0];
+            const codes = values[1];
 
-        const optionDate = Date.tomorrow();
-        const prefName = tenki[1].timeSeries[0].areas[0].area.name;
-        const reportDatetime = new Date(tenki[0].reportDatetime);
-        console.log(prefName, reportDatetime)
+            const prefName = tenki[1].timeSeries[0].areas[0].area.name;
+            const reportDatetime = new Date(tenki[0].reportDatetime);
+            console.log(prefName, reportDatetime)
 
-        // 該当の日付がリストの何番目にあるか探す
-        const optionIndex = tenki[0].timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
+            let optionIndex = 1;
+            // 日付指定がなければ予報発表の翌日
+            if (!optionDate)
+                optionDate = new Date(tenki[0].timeSeries[0].timeDefines[optionIndex]);
+            else
+            // 該当の日付がリストの何番目にあるか探す
+                optionIndex = tenki[0].timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
 
-        let forecast = new Discord.MessageEmbed()
-            .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の' + prefName + 'の天気')
-            .setColor('0x219ddd')
-            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 発表')
-            .setURL('https://www.jma.go.jp/bosai/forecast/');
+            let forecast = new Discord.MessageEmbed()
+                .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の' + prefName + 'の天気')
+                .setColor('0x219ddd')
+                .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 発表')
+                .setURL('https://www.jma.go.jp/bosai/forecast/');
 
-        // ここループでぶん回して全エリア引っこ抜く
-        tenki[0].timeSeries[0].areas.forEach(city => {
+            // ここループでぶん回して全エリア引っこ抜く
+            tenki[0].timeSeries[0].areas.forEach(city => {
 
-            const name = city.area.name;
-            const weatherCode = city.weatherCodes[optionIndex];
+                const name = city.area.name;
+                const weatherCode = city.weatherCodes[optionIndex];
 
-            let weatherName, weatherEmoji;
-            for (let key in codes) {
-                if (key === weatherCode) {
-                    weatherName = codes[key][0];
-                    weatherEmoji = codes[key][2];
+                let weatherName, weatherEmoji;
+                for (let key in codes) {
+                    if (key === weatherCode) {
+                        weatherName = codes[key][0];
+                        weatherEmoji = codes[key][2];
+                    }
                 }
-            }
-            forecast.addField(name, weatherEmoji + '\n' + weatherName, true);
+                forecast.addField(name, weatherEmoji + '\n' + weatherName, true);
+            });
+            resolve(forecast);
         });
-        resolve(forecast);
     });
-})
+}
