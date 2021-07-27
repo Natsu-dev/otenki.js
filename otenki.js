@@ -5,18 +5,21 @@ const prefix = 't:';
 const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
-const {getWholeWeather} = require('./getWeatherData.js');
+const {getWholeWeather} = require('./getWeatherData');
+const {infoEmbed} = require("./infoEmbed");
 
 // 環境変数に.envを使う
 require('dotenv').config({path: path.join(__dirname, '.env')});
 
+const version = "1.0.1";
+
 // コマンド読み込み
-let command_count = 0
+let command_count = 0;
 const commandFiles = fs.readdirSync('./command').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     command_count++;
     const command = require(`./command/${file}`);
-    console.log(command)
+    console.log(command);
     client.commands.set(command.name, command);
 }
 console.log(`${command_count} files loaded.`)
@@ -83,14 +86,7 @@ client.on("guildCreate", guild => {
     if (greetingChannel === undefined) {
         greetingChannel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
     }
-    greetingChannel.send(
-        // TODO ここ仮実装、きたないので後で直そう
-        new Discord.MessageEmbed()
-            .setTitle('おてんき bot')
-            .setColor('0x219ddd')
-            .setDescription('Version 1.0.0')
-            .setURL('https://github.com/Natsu-dev/otenki')
-    );
+    greetingChannel.send(infoEmbed(version));
 });
 
 client.login(process.env.DISCORD_TOKEN) // Login phase

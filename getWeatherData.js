@@ -22,7 +22,7 @@ const openCodesFile = async () => new Promise((resolve, reject) => {
     });
 });
 
-exports.getWholeWeather = async () => new Promise((resolve, reject) => {
+exports.getWholeWeather = async (optionDate) => new Promise((resolve, reject) => {
     Promise.all([
         downloadJson('010000'), // 全国予報のjsonを取ってくる
         openCodesFile(), // テロップ番号対応表
@@ -30,11 +30,15 @@ exports.getWholeWeather = async () => new Promise((resolve, reject) => {
         const tenki = values[0];
         const codes = values[1];
 
-        const optionDate = Date.tomorrow();
         const reportDatetime = new Date(tenki[0].srf.reportDatetime);
 
-        // 該当の日付がリストの何番目にあるか探す
-        const optionIndex = tenki[0].srf.timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
+        let optionIndex = 1;
+        if (!optionDate)
+            // optionDateが指定されていない場合は発表翌日
+            optionDate = new Date(tenki[0].srf.timeSeries[0].timeDefines[optionIndex]);
+        else
+            // 指定されている場合は該当の日付がリストの何番目にあるか探す
+            optionIndex = tenki[0].srf.timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
 
         // Embedの初期化
         let forecast = new Discord.MessageEmbed()
@@ -62,7 +66,7 @@ exports.getWholeWeather = async () => new Promise((resolve, reject) => {
     });
 })
 
-exports.getLocalWeather = async primaryAreaCode => new Promise((resolve, reject) => {
+exports.getLocalWeather = async (primaryAreaCode, optionDate) => new Promise((resolve, reject) => {
     Promise.all([
         downloadJson(primaryAreaCode), // 天気予報のjsonを取ってくる
         openCodesFile(), // テロップ番号対応表
@@ -70,13 +74,17 @@ exports.getLocalWeather = async primaryAreaCode => new Promise((resolve, reject)
         const tenki = values[0];
         const codes = values[1];
 
-        const optionDate = Date.tomorrow();
         const prefName = tenki[1].timeSeries[0].areas[0].area.name;
         const reportDatetime = new Date(tenki[0].reportDatetime);
         console.log(prefName, reportDatetime)
 
-        // 該当の日付がリストの何番目にあるか探す
-        const optionIndex = tenki[0].timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
+        let optionIndex = 1;
+        if (!optionDate)
+            // optionDateが指定されていない場合は発表翌日
+            optionDate = new Date(tenki[0].timeSeries[0].timeDefines[optionIndex]);
+        else
+            // 指定されている場合は該当の日付がリストの何番目にあるか探す
+            optionIndex = tenki[0].timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate));
 
         let forecast = new Discord.MessageEmbed()
             .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の' + prefName + 'の天気')
