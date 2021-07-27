@@ -88,7 +88,7 @@ client.on("guildCreate", guild => {
         new Discord.MessageEmbed()
             .setTitle('おてんき bot')
             .setColor('0x219ddd')
-            .setDescription('Version 1.0.0')
+            .setDescription('Version 1.0.1')
             .setURL('https://github.com/Natsu-dev/otenki')
     );
 });
