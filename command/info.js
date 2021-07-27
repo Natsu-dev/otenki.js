@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const otenki = require('../otenki.js');
 
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 
 module.exports = {
     name: 'info',
