@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 
 
 exports.infoEmbed = () => {
+
     return new Discord.MessageEmbed()
         .setTitle('おてんき bot')
         .setColor('0x219ddd')
