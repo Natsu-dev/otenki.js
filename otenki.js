@@ -11,8 +11,6 @@ const {infoEmbed} = require("./infoEmbed");
 // 環境変数に.envを使う
 require('dotenv').config({path: path.join(__dirname, '.env')});
 
-const version = "1.0.1";
-
 // コマンド読み込み
 let command_count = 0;
 const commandFiles = fs.readdirSync('./command').filter(file => file.endsWith('.js'));
@@ -26,23 +24,26 @@ console.log(`${command_count} files loaded.`)
 
 // 定期実行の設定
 cron.schedule('0 0 22 * * *', () => {
-    client.guilds.cache.forEach(guild => {
-        let channel = guild.channels.cache
-            .find(channel => channel.type === 'text'
-                && channel.permissionsFor(guild.me).has('SEND_MESSAGES')
-                && channel.name.indexOf('天気予報') > -1)
-        if (channel === undefined) {
-            channel = guild.channels.cache
+    getWholeWeather().then(resolve => {
+
+        client.guilds.cache.forEach(guild => {
+            let channel = guild.channels.cache
                 .find(channel => channel.type === 'text'
-                    && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
-        }
-        getWholeWeather().then(resolve => channel.send(resolve));
+                    && channel.permissionsFor(guild.me).has('SEND_MESSAGES')
+                    && channel.name.indexOf('天気予報') > -1)
+            if (channel === undefined) {
+                channel = guild.channels.cache
+                    .find(channel => channel.type === 'text'
+                        && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
+            }
+            channel.send(resolve);
+
+        })
     })
 }, {
     scheduled: true,
     timezone: 'Asia/Tokyo'
 })
-
 
 // ログイン処理
 client.on('ready', () => {
@@ -63,6 +64,7 @@ client.on('ready', () => {
     console.log('ready...');
 });
 
+// コマンド処理
 client.on('message', async message => {
 
     if (message.author.bot) return;
@@ -86,7 +88,7 @@ client.on("guildCreate", guild => {
     if (greetingChannel === undefined) {
         greetingChannel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
     }
-    greetingChannel.send(infoEmbed(version));
+    greetingChannel.send(infoEmbed());
 });
 
 client.login(process.env.DISCORD_TOKEN) // Login phase
