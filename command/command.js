@@ -11,7 +11,7 @@ module.exports = {
             console.log('command: forecast');
             await client.commands.get('forecast').execute(client, command, args, message);
         }
-        if (command === ('info')){
+        if (command === 'info' || command === 'i'){
             console.log('command: info');
             await client.commands.get('info').execute(client, command, args, message);
         }
