@@ -9,7 +9,7 @@ exports.infoEmbed = () => {
         .setURL('https://github.com/Natsu-dev/otenki')
         .addField(':ballot_box_with_check: About',
             `毎日22時に気象庁発表の翌日の天気の情報を書き込むbotです。
-            詳しい仕様はGitHubリポジトリ( https://github.com/Natsu-dev/otenki )に掲載していますので、必ずご一読ください。`,
+            詳しい仕様はGitHubリポジトリ( https://github.com/Natsu-dev/otenki.js )に掲載していますので、必ずご一読ください。`,
             false)
         .addField(':ballot_box_with_check: Commands',
             `\`t:info\`, \`t:i\` このbotの説明が表示されます。
