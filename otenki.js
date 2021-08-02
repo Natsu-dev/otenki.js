@@ -27,17 +27,14 @@ cron.schedule('0 0 22 * * *', () => {
     getWholeWeather().then(resolve => {
 
         client.guilds.cache.forEach(guild => {
-            let channel = guild.channels.cache
-                .find(channel => channel.type === 'text'
-                    && channel.permissionsFor(guild.me).has('SEND_MESSAGES')
-                    && channel.name.indexOf('天気予報') > -1)
-            if (channel === undefined) {
-                channel = guild.channels.cache
+            new Promise(channel => {
+                channel(guild.channels.cache
                     .find(channel => channel.type === 'text'
-                        && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
-            }
-            channel.send(resolve);
-
+                        && channel.permissionsFor(guild.me).has('SEND_MESSAGES')
+                        && channel.name.indexOf('天気予報') > -1)
+                )
+            }).then(channel => channel.send(resolve))
+                .catch(() => console.log('No channels in Guild: \'' + guild.name + '\' include \'天気予報\' in their names.'));
         })
     })
 }, {
