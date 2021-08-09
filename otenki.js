@@ -5,7 +5,7 @@ const prefix = 't:';
 const fs = require('fs');
 const path = require('path');
 const cron = require('node-cron');
-const {getWholeWeather} = require('./getWeatherData');
+const {getWeatherData} = require('./getWeatherData');
 const {infoEmbed} = require("./infoEmbed");
 
 // 環境変数に.envを使う
@@ -24,7 +24,8 @@ console.log(`${command_count} files loaded.`)
 
 // 定期実行の設定
 cron.schedule('0 0 22 * * *', () => {
-    getWholeWeather().then(resolve => {
+
+    getWeatherData().then(resolve => {
 
         client.guilds.cache.forEach(guild => {
             new Promise(channel => {
@@ -37,6 +38,7 @@ cron.schedule('0 0 22 * * *', () => {
                 .catch(() => console.log('No channels in Guild: \'' + guild.name + '\' include \'天気予報\' in their names.'));
         })
     })
+
 }, {
     scheduled: true,
     timezone: 'Asia/Tokyo'
