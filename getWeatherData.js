@@ -40,7 +40,7 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
 
         const prefName = (isWhole ? '全国' : tenki[1].timeSeries[0].areas[0].area.name);
         const reportDatetime = (isWhole ? new Date(tenki[0].srf.reportDatetime) : new Date(tenki[0].reportDatetime));
-        const cities = (isWhole ? tenki : tenki[0].timeSeries[0].areas)
+        const cities = (isWhole ? tenki : tenki[0].timeSeries[0].areas);
 
         let optionIndex = 1;
         if (!optionDate)
@@ -62,24 +62,17 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
             .setURL('https://www.jma.go.jp/bosai/forecast/');
 
         // ここループでぶん回して全都市引っこ抜く
-        cities.forEach(city => {
-
-            const name = (isWhole ? city.name : city.area.name);
+        for (let i in cities) {
+            const name = (isWhole ? cities[i].name : cities[i].area.name);
             const weatherCode = (isWhole
-                ? city.srf.timeSeries[0].areas.weatherCodes[optionIndex]
-                : city.weatherCodes[optionIndex]);
+                ? cities[i].srf.timeSeries[0].areas.weatherCodes[optionIndex]
+                : cities[i].weatherCodes[optionIndex]);
 
-            // TODO 最高気温、最低気温、降水確率
-
-            let weatherName, weatherEmoji;
-            for (let key in codes) {
-                if (key === weatherCode) {
-                    weatherName = codes[key][0];
-                    weatherEmoji = codes[key][2];
-                }
-            }
-            forecast.addField(name, weatherEmoji + '\n' + weatherName, true);
-        });
+            const weather = (c => {
+                for (let key in c) if (key === weatherCode) return c[key]
+            })(codes);
+            forecast.addField(name, weather[2] + '\n' + weather[0], true);
+        };
         resolve(forecast);
     });
 })
