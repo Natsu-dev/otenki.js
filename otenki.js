@@ -34,8 +34,11 @@ cron.schedule('0 0 22 * * *', () => {
                         && channel.permissionsFor(guild.me).has('SEND_MESSAGES')
                         && channel.name.indexOf('天気予報') > -1)
                 )
-            }).then(channel => channel.send(resolve))
-                .catch(() => console.log('No channels in Guild: \'' + guild.name + '\' include \'天気予報\' in their names.'));
+            }).then(channel => {
+                if (channel) channel.send(resolve)
+                else console.log('No channels in Guild: \'' + guild.name + '\' include \'天気予報\' in their names.')
+            })
+                .catch(e => console.log(e));
         })
     })
 
