@@ -67,11 +67,14 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
             const weatherCode = (isWhole
                 ? cities[i].srf.timeSeries[0].areas.weatherCodes[optionIndex]
                 : cities[i].weatherCodes[optionIndex]);
-
             const weather = (c => {
                 for (let key in c) if (key === weatherCode) return c[key]
-            })(codes);
-            forecast.addField(name, weather[2] + '\n' + weather[0], true);
+            })(codes); // 即時関数，"(codes)"は引数
+            const temps = (isWhole
+                ? cities[i].srf.timeSeries[2].areas.temps
+                : ["-", "-"]); // TODO 地方版の気温の取り出し
+
+            forecast.addField(name, weather[2] + '\n' + weather[0] + '\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
         };
         resolve(forecast);
     });
