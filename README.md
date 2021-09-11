@@ -1,6 +1,6 @@
 # otenki.js
 
-## おてんき Version 1.1.0
+## おてんき Version 1.1.1
 
 気象庁ホームページ( https://www.jma.go.jp/ )より取得した天気の情報を書き込むDiscord bot「おてんき」です。
 
