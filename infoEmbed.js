@@ -5,7 +5,7 @@ exports.infoEmbed = () => {
     return new Discord.MessageEmbed()
         .setTitle('おてんき bot')
         .setColor('0x219ddd')
-        .setDescription('Version ' + '1.1.1')
+        .setDescription('Version ' + '1.1.2')
         .setURL('https://github.com/Natsu-dev/otenki')
         .addField(':ballot_box_with_check: About',
             `毎日22時に気象庁発表の翌日の天気の情報を書き込むbotです。

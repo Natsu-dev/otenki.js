@@ -58,8 +58,9 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
         let forecast = new Discord.MessageEmbed()
             .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の' + prefName + 'の天気')
             .setColor('0x219ddd')
-            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 発表')
-            .setURL('https://www.jma.go.jp/bosai/forecast/');
+            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 気象庁 発表')
+            .setURL('https://www.jma.go.jp/bosai/forecast/')
+            //.setFooter('おてんき by Natsu-dev', 'https://github.com/Natsu-dev.png')
 
         // ここループでぶん回して全都市引っこ抜く
         for (let i in cities) {
@@ -74,7 +75,7 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
                 ? cities[i].srf.timeSeries[2].areas.temps
                 : ["-", "-"]).slice(-2); // TODO 地方版の気温の取り出し
 
-            forecast.addField(name, weather[2] + '\n' + weather[0] + '\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
+            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
         };
         resolve(forecast);
     });
