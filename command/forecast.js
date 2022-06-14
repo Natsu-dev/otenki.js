@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const {getWeatherData} = require("../getWeatherData.js");
-const client = new Discord.Client();
 
 // 全国の天気
 module.exports = {
@@ -10,7 +9,8 @@ module.exports = {
         getWeatherData()
             .then(resolve => {
                 console.log(resolve);
-                message.channel.send(resolve);
+                message.channel.send({embeds: [resolve]})
+                    .then(r => console.log('Sent a forecast message.'));
             });
     }
 }

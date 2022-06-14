@@ -26,6 +26,7 @@ const openCodesFile = async () => new Promise((resolve, reject) => {
 exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise((resolve, reject) => {
 
     // 取得するのが全国予報であればtrue
+    // 空欄なら初期値として010000が入るためtrue
     const isWhole = (areaCode === '010000');
 
     // 気象庁の天気予報データDLとローカルの天気コード展開
@@ -64,19 +65,24 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
 
         // ここループでぶん回して全都市引っこ抜く
         for (let i in cities) {
+            // 地名
             const name = (isWhole ? cities[i].name : cities[i].area.name);
+            // テロップ番号
             const weatherCode = (isWhole
                 ? cities[i].srf.timeSeries[0].areas.weatherCodes[optionIndex]
                 : cities[i].weatherCodes[optionIndex]);
+            // テロップ番号から天気の絵文字取得
             const weather = (c => {
                 for (let key in c) if (key === weatherCode) return c[key]
             })(codes); // 即時関数，"(codes)"は引数
+            // 気温
             const temps = (isWhole
                 ? cities[i].srf.timeSeries[2].areas.temps
-                : ["-", "-"]).slice(-2); // TODO 地方版の気温の取り出し
+                : ["-", "-"]).slice(-2); // データがなければハイフン
+            // TODO 地方版の気温の取り出し
 
-            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
-        };
+            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃\n.', true);
+        }
         resolve(forecast);
     });
 })
