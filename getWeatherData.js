@@ -12,7 +12,13 @@ const downloadJson = async areaCode => new Promise((resolve, reject) => {
         let body = '';
         res.setEncoding('utf8');
         res.on('data', (chunk) => body += chunk);
-        res.on('end', () => resolve(JSON.parse(body)));
+        res.on('end', () => {
+            try {
+                resolve(JSON.parse(body))
+            } catch (e) {
+                console.error(e)
+            }
+        });
     }).on('error', (e) => reject(e.message));
 });
 
@@ -61,30 +67,95 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
             .setColor('0x219ddd')
             .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 気象庁 発表')
             .setURL('https://www.jma.go.jp/bosai/forecast/')
-            //.setFooter('おてんき by Natsu-dev', 'https://github.com/Natsu-dev.png')
+        //.setFooter('おてんき by Natsu-dev', 'https://github.com/Natsu-dev.png')
 
+        let name, weatherCode, weather, temps;
         // ここループでぶん回して全都市引っこ抜く
         for (let i in cities) {
             // 地名
-            const name = (isWhole ? cities[i].name : cities[i].area.name);
+            name = (isWhole ? cities[i].name : cities[i].area.name);
             // テロップ番号
-            const weatherCode = (isWhole
+            weatherCode = (isWhole
                 ? cities[i].srf.timeSeries[0].areas.weatherCodes[optionIndex]
                 : cities[i].weatherCodes[optionIndex]);
             // テロップ番号から天気の絵文字取得
-            const weather = (c => {
+            weather = (c => {
                 for (let key in c) if (key === weatherCode) return c[key]
             })(codes); // 即時関数，"(codes)"は引数
             // 気温
-            const temps = (isWhole
+            temps = (isWhole
                 ? cities[i].srf.timeSeries[2].areas.temps
                 : ["-", "-"]).slice(-2); // データがなければハイフン
             // TODO 地方版の気温の取り出し
 
-            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃\n.', true);
+            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
         }
         resolve(forecast);
     });
+})
+
+exports.getSimpleLocalWeather = async (areaCode, optionDate) => new Promise((resolve, reject) => {
+    Promise.all([
+        downloadJson(areaCode), // 予報のjsonを取ってくる
+        openCodesFile(), // テロップ番号対応表
+    ]).then((values) => {
+
+        // resolve結果を整理
+        const tenki = values[0];
+        const codes = values[1];
+
+        const prefName = tenki[1].timeSeries[0].areas[0].area.name;
+        const reportDatetime = new Date(tenki[0].reportDatetime);
+        const cities = tenki[0].timeSeries[0].areas;
+
+        let optionIndex = 1;
+        if (!optionDate)
+            // optionDateが指定されていない場合は発表翌日
+            optionDate = new Date(tenki[0].timeSeries[0].timeDefines[optionIndex])
+        else
+            // 指定されている場合は該当の日付がリストの何番目にあるか探す
+            optionIndex = tenki[0].timeSeries[0].timeDefines.findIndex(element => Date.equals(new Date(element), optionDate))
+
+        // Embedの初期化
+        let forecast = new Discord.MessageEmbed()
+            .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の ' + prefName + ' の天気')
+            .setColor('0x219ddd')
+            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 気象庁 発表')
+            .setURL('https://www.jma.go.jp/bosai/forecast/')
+        //.setFooter('おてんき by Natsu-dev', 'https://github.com/Natsu-dev.png')
+
+        let name, weatherCode, weather, temps;
+        // ここループでぶん回して全エリアぶんを引っこ抜く
+        for (let i in cities) {
+            // 地域名
+            name = cities[i].area.name;
+            // テロップ番号
+            weatherCode = cities[i].weatherCodes[optionIndex]
+            // テロップ番号から天気の絵文字取得
+            weather = (c => {
+                for (let key in c) if (key === weatherCode) return c[key]
+            })(codes); // 即時関数，"(codes)"は引数
+            // 気温
+            // optionIndexと同じ日付を見つけ、そこから2つの要素がそれぞれ最低/最高気温
+            temps = (tds => {
+                let index = 0
+                for (let idx in tds) {
+                    // optionDateと同じ日付のある場所を見つける
+                    console.log(tds[idx])
+                    if (new Date(tds[idx]).toFormat('YYYYMMDD') === optionDate.toFormat('YYYYMMDD')) {
+                        index = idx;
+                        console.log(index)
+                        break;
+                    }
+                }
+                // optionDateの位置から2つ取り出す
+                return tenki[0].timeSeries[2].areas[i].temps.slice(index, index + 2)
+            })(tenki[0].timeSeries[2].timeDefines); // 即時関数，"(timeDefines)"は引数
+
+            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
+        }
+        resolve(forecast);
+    })
 })
 
 exports.getLocalWeather = async (primaryAreaCode, optionDate) => new Promise((resolve, reject) => {

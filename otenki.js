@@ -74,6 +74,7 @@ client.on('messageCreate', async message => {
         .split(/ +/g);
     const command = args.shift().toLowerCase(); //引数
     console.log(command)
+    console.log(args)
     // -> command.js
     await client.commands.get('command').execute(client, command, args, message);
 

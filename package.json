@@ -8,8 +8,7 @@
     "node-cron": "^3.0.1",
     "node-pg-migrate": "^6.2.1",
     "pg": "^8.7.3",
-    "pg-hstore": "^2.3.4",
-    "request": "^2.88.2"
+    "uuid": "^8.3.2"
   },
   "description": "気象庁ホームページ( https://www.jma.go.jp/ )より取得した天気の情報を書き込むDiscord bot「おてんき」です。",
   "main": "otenki.js",
