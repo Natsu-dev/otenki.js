@@ -15,13 +15,13 @@ module.exports = {
                     message.channel.send({embeds: [resolve]})
                         .then(r => console.log('Sent a forecast message.'));
                 })
-        } else if (args[0]) {
-            getSimpleLocalWeather(args[0])
-                .then(resolve => {
-                    console.log(resolve);
-                    message.channel.send({embeds: [resolve]})
-                        .then(r => console.log('Sent a forecast message.'));
-                })
+        // } else if (args[0]) {
+        //     getSimpleLocalWeather(args[0])
+        //         .then(resolve => {
+        //             console.log(resolve);
+        //             message.channel.send({embeds: [resolve]})
+        //                 .then(r => console.log('Sent a forecast message.'));
+        //         })
         } else {
             getWeatherData()
                 .then(resolve => {
