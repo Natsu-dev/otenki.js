@@ -1,6 +1,6 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
+const {Client, Intents, Collection, Permissions} = require('discord.js');
+const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
+client.commands = new Collection();
 const prefix = 't:';
 const fs = require('fs');
 const path = require('path');
@@ -30,12 +30,12 @@ cron.schedule('0 0 22 * * *', () => {
         client.guilds.cache.forEach(guild => {
             new Promise(channel => {
                 channel(guild.channels.cache
-                    .find(channel => channel.type === 'text'
-                        && channel.permissionsFor(guild.me).has('SEND_MESSAGES')
+                    .find(channel => channel.type === 'GUILD_TEXT'
+                        && channel.permissionsFor(guild.me).has([Permissions.FLAGS.SEND_MESSAGES])
                         && channel.name.indexOf('天気予報') > -1)
                 )
             }).then(channel => {
-                if (channel) channel.send(resolve)
+                if (channel) channel.send({embeds: [resolve]})
                 else console.log('No channels in Guild: \'' + guild.name + '\' include \'天気予報\' in their names.')
             })
                 .catch(e => console.log(e));
@@ -50,11 +50,7 @@ cron.schedule('0 0 22 * * *', () => {
 // ログイン処理
 client.on('ready', () => {
     client.user.setStatus('online') //online, idle, dnd, invisible
-        .then(r => console.log('Status set.'))
-        .catch(console.error);
     client.user.setActivity('t:info') //ステータスメッセージ
-        .then(r => console.log('Activity set.'))
-        .catch(console.error);
 
     console.log(`USER: ${client.user.username}`)
     console.log(`ID: ${client.user.id}`)
@@ -67,7 +63,7 @@ client.on('ready', () => {
 });
 
 // コマンド処理
-client.on('message', async message => {
+client.on('messageCreate', async message => {
 
     if (message.author.bot) return;
     if (message.content.indexOf(prefix) !== 0) return;
@@ -78,6 +74,7 @@ client.on('message', async message => {
         .split(/ +/g);
     const command = args.shift().toLowerCase(); //引数
     console.log(command)
+    console.log(args)
     // -> command.js
     await client.commands.get('command').execute(client, command, args, message);
 
@@ -90,7 +87,8 @@ client.on("guildCreate", guild => {
     if (greetingChannel === undefined) {
         greetingChannel = guild.channels.cache.find(channel => channel.type === 'text' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
     }
-    greetingChannel.send(infoEmbed());
+    greetingChannel.send({embeds: [infoEmbed()]})
+        .then(r => console.log('Sent a greeting message.'))
 });
 
 client.login(process.env.DISCORD_TOKEN) // Login phase

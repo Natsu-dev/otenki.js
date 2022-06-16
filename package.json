@@ -3,20 +3,19 @@
   "version": "1.0.0",
   "dependencies": {
     "date-utils": "^1.2.21",
-    "discord.js": "^12.5.3",
-    "dotenv": "^10.0.0",
-    "node-cron": "^3.0.0",
-    "node-pg-migrate": "^5.9.0",
-    "request": "^2.88.2",
-    "pg": "^8.6.0"
-  },
-  "devDependencies": {
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
+    "node-cron": "^3.0.1",
+    "node-pg-migrate": "^6.2.1",
+    "pg": "^8.7.3",
+    "uuid": "^8.3.2"
   },
   "description": "気象庁ホームページ( https://www.jma.go.jp/ )より取得した天気の情報を書き込むDiscord bot「おてんき」です。",
   "main": "otenki.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "node-pg-migrate"
+    "migrate": "node-pg-migrate",
+    "sequelize": "sequelize"
   },
   "repository": {
     "type": "git",
