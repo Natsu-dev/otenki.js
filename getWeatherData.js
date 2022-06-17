@@ -39,7 +39,7 @@ exports.getWeatherData = async (areaCode = '010000', optionDate) => new Promise(
     Promise.all([
         downloadJson(areaCode), // 全国予報のjsonを取ってくる
         openCodesFile(), // テロップ番号対応表
-    ]).then((values) => {
+    ]).then(values => {
 
         // resolve結果を整理
         const tenki = values[0];
