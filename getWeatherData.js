@@ -105,6 +105,7 @@ exports.getSimpleLocalWeather = async (areaCode, optionDate) => new Promise((res
         const codes = values[1];
 
         const prefName = tenki[1].timeSeries[0].areas[0].area.name;
+        const publishingOffice = tenki[0].publishingOffice;
         const reportDatetime = new Date(tenki[0].reportDatetime);
         const cities = tenki[0].timeSeries[0].areas;
 
@@ -120,7 +121,7 @@ exports.getSimpleLocalWeather = async (areaCode, optionDate) => new Promise((res
         let forecast = new Discord.MessageEmbed()
             .setTitle(optionDate.toFormat('YYYY年MM月DD日') + 'の ' + prefName + ' の天気')
             .setColor('0x219ddd')
-            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' 気象庁 発表')
+            .setDescription(reportDatetime.toFormat('YYYY年MM月DD日 HH24時MI分') + ' ' + publishingOffice +' 発表')
             .setURL('https://www.jma.go.jp/bosai/forecast/')
         //.setFooter('おてんき by Natsu-dev', 'https://github.com/Natsu-dev.png')
 
