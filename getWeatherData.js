@@ -125,7 +125,7 @@ exports.getSimpleLocalWeather = async (areaCode, optionDate) => new Promise((res
             .setURL('https://www.jma.go.jp/bosai/forecast/')
         //.setFooter('おてんき by Natsu-dev', 'https://github.com/Natsu-dev.png')
 
-        let name, weatherCode, weather, temps;
+        let name, tenkiText, weatherCode, weather, temps;
         // ここループでぶん回して全エリアぶんを引っこ抜く
         for (let i in cities) {
             // 地域名
@@ -150,10 +150,15 @@ exports.getSimpleLocalWeather = async (areaCode, optionDate) => new Promise((res
                     }
                 }
                 // optionDateの位置から2つ取り出す
+                // TODO: 天気の地域数 < 気温の地域数 のときは、最初の地域に余剰分を詰め込んだあと残りの地域に1件ずつデータが入る感じっぽい
+                //  ex 天気2、気温4のとき、天気1件目に気温3件、2件目に残りの気温1件
+                //  骨が折れる処理ですが頑張りましょう
                 return tenki[0].timeSeries[2].areas[i].temps.slice(index, index + 2)
             })(tenki[0].timeSeries[2].timeDefines); // 即時関数，"(timeDefines)"は引数
 
-            forecast.addField(name, weather[2] + '　`' + weather[0] + '`　\n' + temps[0] + '℃ / ' + temps[1] + '℃', true);
+            tenkiText = weather[2] + '　`' + weather[0] + '`　\n'
+            tenkiText += temps[0] + '℃ / ' + temps[1] + '℃'
+            forecast.addField(name, tenkiText, true);
         }
         resolve(forecast);
     })
